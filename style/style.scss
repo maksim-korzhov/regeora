@@ -16,11 +16,13 @@
 }
 
 .day {
+  outline: 1px solid transparent;
   display: flex;
   flex: 1 1 14%;
+  justify-content: center;
   text-align: center;
 
   &--active {
-    background: blue;
+    outline: 1px solid blue;
   }
 }

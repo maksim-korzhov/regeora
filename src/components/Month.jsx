@@ -26,8 +26,6 @@ class Month extends Component {
             acc.push(this._showEmptyDay(`empty_start_${currentYear}_${currentMonth}_${i}`));
         }
 
-        console.log(currentDay);
-
         // Show days
         for( let i = 1; i <= lastDay; i++) {
             acc.push(
@@ -35,9 +33,12 @@ class Month extends Component {
                     key={i}
                     number={i}
                     isActive={i === currentDay}
+                    onDayClick={this.props.onDayClick}
                 />
             );
         }
+
+        console.log(lastDayInWeek);
 
         // Show empty cells
         for( let i = lastDayInWeek; i < 7; i++ ) {

@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 
 class Day extends Component {
+    _onClickHandler() {
+        this.props.onDayClick(this.props.number);
+    }
+
     render() {
-        const { isActive } = this.props;
+        const { isActive, number } = this.props;
 
         return (
             <div className={`day ${isActive ? "day--active" : ""}`}>
-                <span>{this.props.number}</span>
+                <span onClick={this._onClickHandler.bind(this)}>{number}</span>
             </div>
         );
     }
