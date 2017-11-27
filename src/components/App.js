@@ -1,26 +1,11 @@
 import React, { Component } from "react";
-import Calendar from "react-calendar";
+import Calendar from "./Calendar";
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            date: new Date(),
-        };
-    }
-
-    onDateChange(e) {
-        console.log(e);
-    }
-
     render() {
         return (
             <div>
-                <Calendar
-                    onChange={this.onDateChange}
-                    value={this.state.date}
-                />
+                <Calendar />
             </div>
         );
     }

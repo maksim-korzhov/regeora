@@ -44,7 +44,6 @@
   },
   "dependencies": {
     "prop-types": "^15.6.0",
-    "react-calendar": "^2.3.1",
     "rimraf": "^2.6.1"
   }
 }
