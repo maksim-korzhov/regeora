@@ -44,8 +44,6 @@ class Month extends Component {
             );
         }
 
-        console.log(lastDayInWeek);
-
         // Show empty cells
         if( lastDayInWeek > 0 ) {
             for (let i = lastDayInWeek; i < 7; i++) {
