@@ -81,6 +81,7 @@ class Calendar extends Component {
                     <Month
                         currentDate={this.state.currentDate}
                         onDayClick={this._setCurrentDay.bind(this)}
+                        eventsList={eventsList}
                     />
                 </div>
                 <EventsList

@@ -16,6 +16,7 @@
 }
 
 .day {
+  cursor: pointer;
   outline: 1px solid transparent;
   display: flex;
   flex: 1 1 14%;
@@ -24,5 +25,9 @@
 
   &--active {
     outline: 1px solid blue;
+  }
+
+  &--has-events {
+    background: #ccc;
   }
 }

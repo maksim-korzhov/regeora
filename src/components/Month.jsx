@@ -11,7 +11,7 @@ class Month extends Component {
         return <div className="day" key={i}>&nbsp;</div>;
     }
 
-    _showDays(currentDate, activeDate) {
+    _showDays(currentDate, eventsList) {
         const acc = [];
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth();
@@ -28,10 +28,14 @@ class Month extends Component {
 
         // Show days
         for( let i = 1; i <= lastDay; i++) {
+            const key = `${currentYear}_${currentMonth}_${i}`;
+            const hasEvents = !!eventsList[key] && eventsList[key].length > 0;
+
             acc.push(
                 <Day
                     key={i}
                     number={i}
+                    hasEvents={hasEvents}
                     isActive={i === currentDay}
                     onDayClick={this.props.onDayClick}
                 />
@@ -47,11 +51,11 @@ class Month extends Component {
     }
 
     render() {
-        const { currentDate, activeDate } = this.props;
+        const { eventsList, currentDate, activeDate } = this.props;
 
         return (
             <div className="month">
-                {this._showDays(currentDate, activeDate).map( day => day )}
+                {this._showDays(currentDate, eventsList).map( day => day )}
             </div>
         );
     }

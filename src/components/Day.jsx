@@ -6,10 +6,12 @@ class Day extends Component {
     }
 
     render() {
-        const { isActive, number } = this.props;
+        const { isActive, hasEvents, number } = this.props;
+
+        console.log(number, hasEvents);
 
         return (
-            <div className={`day ${isActive ? "day--active" : ""}`}>
+            <div className={`day ${isActive ? "day--active" : ""} ${hasEvents ? "day--has-events" : ""}`}>
                 <span onClick={this._onClickHandler.bind(this)}>{number}</span>
             </div>
         );
