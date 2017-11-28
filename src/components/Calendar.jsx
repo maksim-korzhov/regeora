@@ -55,9 +55,18 @@ class Calendar extends Component {
         this.setState({ eventsList });
     }
 
+    _removeEvent(i) {
+        const { eventsList, currentDate } = this.state;
+        const dateAsString = `${currentDate.getFullYear()}_${currentDate.getMonth()}_${currentDate.getDate()}`;
+
+        eventsList[dateAsString].splice(i, 1);
+
+        this.setState({ eventsList });
+    }
+
     render() {
         const { eventsList, currentDate } = this.state;
-        const dateAsString = `${currentDate.getFullYear()}_${currentDate.getMonth()}_${currentDate.getDate()}`
+        const dateAsString = `${currentDate.getFullYear()}_${currentDate.getMonth()}_${currentDate.getDate()}`;
         const currentEvents = eventsList[dateAsString] ? eventsList[dateAsString] : [];
 
         return (
@@ -74,7 +83,11 @@ class Calendar extends Component {
                         onDayClick={this._setCurrentDay.bind(this)}
                     />
                 </div>
-                <EventsList eventsList={currentEvents} addNewEvent={this._addNewEvent.bind(this)} />
+                <EventsList
+                    eventsList={currentEvents}
+                    addNewEvent={this._addNewEvent.bind(this)}
+                    removeEvent={this._removeEvent.bind(this)}
+                />
             </div>
         );
     }

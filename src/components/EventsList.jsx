@@ -10,7 +10,7 @@ class EventsList extends Component {
     }
 
     _renderEvent(event, i) {
-        return <li key={i} className="events-list__item">{event} <span className="remove" >X</span></li>;
+        return <li key={i} className="events-list__item">{event} <span className="remove" onClick={this._onDeleteHandler.bind(this, i)}>[X]</span></li>;
     }
 
     _renderAllEvents(eventsList) {
@@ -37,6 +37,10 @@ class EventsList extends Component {
         this.setState({
             input: ""
         });
+    }
+
+    _onDeleteHandler(e, i) {
+        this.props.removeEvent(i)
     }
 
     render() {
