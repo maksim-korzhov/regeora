@@ -11,11 +11,11 @@ class Month extends Component {
         return <div className="day" key={i}>&nbsp;</div>;
     }
 
-    _showDays(currentDate) {
+    _showDays(currentDate, activeDate) {
         const acc = [];
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth();
-        const currentDay= currentDate.getDate();
+        const currentDay = currentDate.getDate();
 
         const lastDay = this.getLastDayOfMonth(currentYear, currentMonth);
         const firstDayInWeek = new Date(currentYear, currentMonth, 1).getDay();
@@ -38,8 +38,6 @@ class Month extends Component {
             );
         }
 
-        console.log(lastDayInWeek);
-
         // Show empty cells
         for( let i = lastDayInWeek; i < 7; i++ ) {
             acc.push(this._showEmptyDay(`empty_end_${currentYear}_${currentMonth}_${i}`));
@@ -49,11 +47,11 @@ class Month extends Component {
     }
 
     render() {
-        const { currentDate } = this.props;
+        const { currentDate, activeDate } = this.props;
 
         return (
             <div className="month">
-                {this._showDays(currentDate).map( day => day )}
+                {this._showDays(currentDate, activeDate).map( day => day )}
             </div>
         );
     }

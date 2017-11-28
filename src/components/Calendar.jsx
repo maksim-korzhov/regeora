@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Month from "./Month";
+import EventsList from "./EventsList";
 
 class Calendar extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Calendar extends Component {
 
         this.state = {
             currentDate: currentDate,
+            eventsList: {}
         };
     }
 
@@ -40,7 +42,24 @@ class Calendar extends Component {
         });
     }
 
+    _addNewEvent(event) {
+        const { eventsList, currentDate } = this.state;
+        const dateAsString = `${currentDate.getFullYear()}_${currentDate.getMonth()}_${currentDate.getDate()}`;
+
+        if( !eventsList[dateAsString] ) {
+            eventsList[dateAsString] = [];
+        }
+
+        eventsList[dateAsString].push(event);
+
+        this.setState({ eventsList });
+    }
+
     render() {
+        const { eventsList, currentDate } = this.state;
+        const dateAsString = `${currentDate.getFullYear()}_${currentDate.getMonth()}_${currentDate.getDate()}`
+        const currentEvents = eventsList[dateAsString] ? eventsList[dateAsString] : [];
+
         return (
             <div>
                 Calendar
@@ -55,6 +74,7 @@ class Calendar extends Component {
                         onDayClick={this._setCurrentDay.bind(this)}
                     />
                 </div>
+                <EventsList eventsList={currentEvents} addNewEvent={this._addNewEvent.bind(this)} />
             </div>
         );
     }
