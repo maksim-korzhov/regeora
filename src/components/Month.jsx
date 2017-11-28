@@ -11,14 +11,16 @@ class Month extends Component {
         return <div className="day" key={i}>&nbsp;</div>;
     }
 
-    _showDays(currentDate, eventsList) {
+    _showDays(currentDate, activeDate,  eventsList) {
         const acc = [];
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth();
-        const currentDay = currentDate.getDate();
+
+        const activeDay = activeDate ? activeDate.getDate() : null;
 
         const lastDay = this.getLastDayOfMonth(currentYear, currentMonth);
-        const firstDayInWeek = new Date(currentYear, currentMonth, 1).getDay();
+        let firstDayInWeek = new Date(currentYear, currentMonth, 1).getDay();
+        firstDayInWeek = firstDayInWeek === 0 ? 7 : firstDayInWeek;
         const lastDayInWeek = new Date(currentYear, currentMonth, lastDay).getDay();
 
         // Show empty cells
@@ -36,15 +38,19 @@ class Month extends Component {
                     key={i}
                     number={i}
                     hasEvents={hasEvents}
-                    isActive={i === currentDay}
+                    isActive={i === activeDay}
                     onDayClick={this.props.onDayClick}
                 />
             );
         }
 
+        console.log(lastDayInWeek);
+
         // Show empty cells
-        for( let i = lastDayInWeek; i < 7; i++ ) {
-            acc.push(this._showEmptyDay(`empty_end_${currentYear}_${currentMonth}_${i}`));
+        if( lastDayInWeek > 0 ) {
+            for (let i = lastDayInWeek; i < 7; i++) {
+                acc.push(this._showEmptyDay(`empty_end_${currentYear}_${currentMonth}_${i}`));
+            }
         }
 
         return acc;
@@ -55,7 +61,7 @@ class Month extends Component {
 
         return (
             <div className="month">
-                {this._showDays(currentDate, eventsList).map( day => day )}
+                {this._showDays(currentDate, activeDate, eventsList).map( day => day )}
             </div>
         );
     }

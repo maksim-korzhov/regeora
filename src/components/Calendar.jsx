@@ -10,6 +10,7 @@ class Calendar extends Component {
 
         this.state = {
             currentDate: currentDate,
+            activeDate: currentDate,
             eventsList: {}
         };
     }
@@ -20,7 +21,8 @@ class Calendar extends Component {
         newDate.setDate(1);
 
         this.setState({
-            currentDate: newDate
+            currentDate: newDate,
+            activeDate: newDate
         });
     }
 
@@ -34,12 +36,23 @@ class Calendar extends Component {
     }
 
     _setCurrentDay(day) {
-        const newDate = new Date(this.state.currentDate);
-        newDate.setDate(day);
+        if(!day) return false;
 
-        this.setState({
-            currentDate: newDate
-        });
+        let newDate = new Date(this.state.currentDate);
+
+        if( this.state.activeDate && newDate.getDate() === day ) {
+            this.setState({
+                currentDate: newDate,
+                activeDate: null
+            });
+        } else {
+            newDate.setDate(day);
+
+            this.setState({
+                currentDate: newDate,
+                activeDate: newDate
+            });
+        }
     }
 
     _addNewEvent(event) {
@@ -70,16 +83,16 @@ class Calendar extends Component {
         const currentEvents = eventsList[dateAsString] ? eventsList[dateAsString] : [];
 
         return (
-            <div>
-                Calendar
+            <div className="wrapper">
                 <div className="calendar">
                     <div className="calendar__nav">
                         <div className="calendar__arr calendar__arr--prev" onClick={this._addMonth.bind(this, -1)}>prev</div>
-                        <div className="calendar__current">{this._getCurrentMonthName()}</div>
+                        <div className="calendar__current">{this._getCurrentMonthName()} ({currentDate.getFullYear()})</div>
                         <div className="calendar__arr calendar__arr--next" onClick={this._addMonth.bind(this, 1)}>next</div>
                     </div>
                     <Month
                         currentDate={this.state.currentDate}
+                        activeDate={this.state.activeDate}
                         onDayClick={this._setCurrentDay.bind(this)}
                         eventsList={eventsList}
                     />

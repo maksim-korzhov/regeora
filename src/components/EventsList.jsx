@@ -15,10 +15,14 @@ class EventsList extends Component {
 
     _renderAllEvents(eventsList) {
         if( Object.keys(eventsList).length === 0 ) {
-            return <div className="events-list">Событий нет</div>;
+            return <div className="no-events">Событий нет</div>;
         }
 
-        return eventsList.map( (event, i) => this._renderEvent(event, i) );
+        return (
+            <ol className="events-list__items">
+                {eventsList.map( (event, i) => this._renderEvent(event, i) )}
+            </ol>
+        );
     }
 
     _onChangeHandler(e) {
@@ -48,9 +52,10 @@ class EventsList extends Component {
 
         return (
             <div className="events-list">
-                <ul className="events-list__items">
-                    {this._renderAllEvents(eventsList)}
-                </ul>
+                <strong>Список событий</strong>
+                <hr/>
+                 {this._renderAllEvents(eventsList)}
+
                 <form className="events-list__form" onSubmit={this._onSubmitHandler.bind(this)}>
                     <input className="events-list__add" value={this.state.input} onChange={this._onChangeHandler.bind(this)} />
                     <button>Добавить</button>
